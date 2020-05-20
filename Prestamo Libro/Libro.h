@@ -9,7 +9,11 @@
 class Libro {
     private: //atributos
         char nlibro [100];
-        char autor [100];
+         Persona autor;
+        int annio;
+        char genero [100];
+        char editorial [100];
+        char isbn[100];
 
 
 
@@ -17,7 +21,8 @@ class Libro {
 
     public: //metodos
         Libro();
-        Libro(char[],char []);
+        Libro(char[],Persona,int,char[],char[],char[]);
+        void consultarAutor();
         void editar();
         void eliminar();
         int numeroL();

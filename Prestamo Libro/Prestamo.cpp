@@ -32,16 +32,20 @@ int Prestamo::getLibro() {
 bool Prestamo::estatus() {
     return this -> status;
 }
-void Prestamo::setDevolucion(long fechaE){
-    this -> fechaE=fechaE;
-    this -> status=false;
+int Prestamo::setDevolucion(){
+
+    return this -> status;
 }
 void Prestamo::toString() {
-    cout << "Numero de usuario: "<<this -> usuario<<endl;
-    cout << "Numero de libro: "<<this -> libro<<endl;
+
     cout << "Fecha prestamo: "<<this -> fechaI<<endl;
-    cout << "Estado del prestamo: "<<this -> status<<endl;
-    cout << "Fecha devuelta: "<<this -> fechaE<<endl;
+    if(this ->status == 1){
+        cout << "Estado del proceso: Ocupado"<<endl;
+    }else{
+        cout << "Estaod del prestamo: Devuelto"<<endl;
+        cout << "Fecha final "<<this->fechaE<<endl;
+    }
+
 
 }
 

@@ -12,7 +12,7 @@ class Prestamo {
     int usuario;
     int libro;
     long fechaI;
-    bool status = false;
+    int status=0;//Desocupado
     long fechaE;//19052020
 
     public:
@@ -21,7 +21,7 @@ class Prestamo {
     int getLibro();
     int getUsuario();
 
-    void setDevolucion(long);
+    int setDevolucion();
 
     bool estatus();
 

@@ -12,22 +12,18 @@ Persona::Persona() {
 
 }
 
-Persona::Persona(char nombre[100],int edad) {
+Persona::Persona(char nombre[100],char apellido[100],char nacionalidad[100]) {
 
      strcpy(this -> nombre,nombre);
-     this -> edad=edad;
+     strcpy(this-> apellido,apellido);
+     strcpy(this -> nacionalidad,nacionalidad);
 
-}
-void Persona::editar() {
-    cout << "--- Editar USUARIO ---"<<endl;
-    cout << "Nombre: "; cin >> nombre;
-    cout << "Edad: "; cin >> edad;
-    cout << "--- Cambios REALIZADOS ---"<<endl;
 }
 void Persona::toString() {
     cout << "<===== DATOS DEL USUARIO ======>"<<endl;
     cout << "Nombre: "<< this -> nombre << endl;
-    cout << "Edad: "<< this -> edad << endl;
+    cout << "Apellidos: "<< this -> apellido << endl;
+    cout << "Nacionalidad: "<< this -> nacionalidad << endl;
     cout << endl<<endl;
 }
 void Persona::eliminar() {

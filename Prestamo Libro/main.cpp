@@ -2,17 +2,22 @@
 #include "Libro.h"
 #include "Prestamo.h"
 using namespace std;
+
+
 /* VAR LIBRO*/
+int annio;
 char nlibro [100];
-char autor[100];
-
-
+char genero [100];
+char editorial [100];
+char isbn[100];
 
 
 
 /* VAR AUTOR */
 char nombre [100];
-int edad;
+char apellido [100];
+char nacionalidad[100];
+int n = 0;
 
 /* VAR PRESTAMO */
 long fechaI;
@@ -22,6 +27,9 @@ int conta=0;
 
 //Prototipo de funcion
 void menuPrincipal();
+void menuLibros();
+void menuUsers();
+void menuPrestamos();
 int libros();
 int usuarios();
 
@@ -30,27 +38,45 @@ Libro registrar(){
 
 
     cout << "--- Registrar Libro ---"<<endl;
-    cout << "Titulo: ";
+    cout << "Titulo: "<<endl;
     cin >> nlibro;
-    cout << "Autor: ";
-    cin >> autor;
-    cout << "Libro REGISTRADO"<<endl;
+    cout << "Annio: "<<endl;
+    cin >> annio;
+    cout << "Genero: "<<endl;
+    cin >> genero;
+    cout << "Editoral: "<<endl;
+    cin >> editorial;
+    cout << "ISBN: "<<endl;
+    cin >> isbn;
 
+    /* AUTOR */
+    cout << "Nombre: "<<endl;
+    cin >> nombre;
+    cout << "Apellido: "<<endl;
+    cin >> apellido;
+    cout << "Nacionalidad: "<<endl;
+    cin >> nacionalidad;
+    cout << "--- LIBRO REGISTRADO CON EXITO ---"<<endl;
+    cout<<endl;
 
-    return Libro(nlibro,autor);
+    Persona autor (nombre,apellido,nacionalidad);
+    return Libro(nlibro,autor,annio,genero,editorial,isbn);
 
 }
 
 Persona registro(){
 
     cout << "--- Registrar usuarios ---"<<endl;
-    cout << "Nombre: ";
+    cout << "Autor: "<<endl;
     cin >> nombre;
-    cout << "Edad: ";
-    cin >> edad;
-    cout << "Registro EXITOSO"<<endl;
+    cout << "Apellido: "<<endl;
+    cin >> apellido;
+    cout << "Nacionalidad: "<<endl;
+    cin >> nacionalidad;
+    cout << "--- USUARIO REGISTRADO CON EXITO ---"<<endl;
+    cout<<endl;
 
-    return Persona(nombre,edad);
+    return Persona(nombre,apellido,nacionalidad);
 
 }
 
@@ -59,7 +85,7 @@ Prestamo prestas(){
     int usuario;
     int libro;
     long fechaI;
-    bool status = false;
+    int status = 0;
     long fechaE;
 
     cout << "Numero de usuario: "<<endl;
@@ -68,11 +94,21 @@ Prestamo prestas(){
     cin >> libro;
     cout << "Fecha actual: "<<endl;
     cin >> fechaI;
-    return Prestamo (usuario,libro,fechaI,status,fechaE);
+
+    Prestamo nuevoPrestamo = Prestamo(usuario,libro,fechaI,status,fechaE);
+    return nuevoPrestamo;
 
 
 
 }
+void mostrarLibros(Libro libros[10],int librosC){
+    for (int i = 0; i < librosC; ++i) {
+        cout<<"--- Libro # "<<(i)<<endl;
+        libros->toString();
+    }
+}
+
+
 
 
 int main() {
@@ -88,6 +124,10 @@ int main() {
     int NoBook=0;
     int NoUser=0;
     int opcion=0;
+    int librosC=0;
+    int usuariosC=0;
+    int tB;
+
 
 
 
@@ -102,24 +142,24 @@ int main() {
 
             case 1: //USUARIO
 
-                cout << "1. Registrar  2.Editar  3.Consultar  4.Eliminar  5.Menu Principal"<<endl;
+                menuUsers();
                 cin >> opcion;
-                if (opcion==1){
+                if (opcion==1){//REGISTRAR
                     usuario[users] = registro();
                     users++;
-                }else if (opcion == 2){
+                }else if (opcion == 2){//EDITAR
                     cout << "Ingrese su numero de usuario: "<<endl;
                     cin >> NoUser;
-                    usuario[NoUser].editar();
-                }else if (opcion == 3){
+                    usuario[NoUser] = registro();
+                }else if (opcion == 3){//CONSULTAR
                     cout << "Ingrese su numero de usuario: "<<endl;
                     cin >> NoUser;
                     usuario[NoUser].toString();
-                }else if (opcion == 4){
+                }else if (opcion == 4){//ELIMINAR
                     cout << "Ingrese su numero de usuario: "<<endl;
                     cin >> NoUser;
                     usuario[NoUser].eliminar();
-                }else if (opcion == 5){
+                }else if (opcion == 5){//MENU PRINCIPAL
                     break;
                 }
 
@@ -127,26 +167,41 @@ int main() {
                 break;
             case 2://LIBRO
 
-                cout << "1. Registrar  2.Editar  3.Consultar  4.Eliminar  5.Menu Principal"<<endl;
+                menuLibros();
                 cin >> opcion;
-                if (opcion==1){
+                if (opcion==1){//REGISTRAR
                     libros[book] = registrar();
 
                     book++;
                     break;
-                }else if (opcion == 2){
+                }else if (opcion == 2){//EDITAR
                     cout << "Ingrese el numero de Libro: "<<endl;
                     cin >> NoBook;
                     libros[NoBook].editar();
-                }else if (opcion == 3){
+                }else if (opcion == 3){//CONSULTAR
                     cout << "Ingrese su numero de Libro: "<<endl;
                     cin >> NoBook;
-                    libros[NoBook].toString();
+                    libros[NoBook].toString();//ELIMINAR
                 }else if (opcion == 4){
                     cout << "Ingrese su numero de Libro: "<<endl;
                     cin >> NoBook;
                     libros[NoBook].eliminar();
-                }else if (opcion == 5){
+                }else if (opcion == 5){//DETALLES DEL LIBRO
+                    cout << "Ingrese el numero de libro"<<endl;
+                    cin >> NoBook;
+                    libros[NoBook].toString();
+
+                    cout << "Informacion de prestamos"<<endl;
+                    for (int i = 0; i < conta; ++i) {
+                        if (presta[i].getLibro()==NoBook){
+
+                            usuario[presta[NoBook].getUsuario()].toString();
+
+
+                            presta[i].toString();
+                        }
+                    }
+
                     break;
                 }
 
@@ -155,16 +210,16 @@ int main() {
 
             case 3://PRESTAMO
 
-                cout << "1. Realizar prestamo  2.Devolver libro  3.Consultar prestamo  4.Menu Principal"<<endl;
+                menuPrestamos();
                 cin >> opcion;
                 if (opcion==1){
-
+                    mostrarLibros(libros,librosC);
                     cout << "Que libro desea llevarse?"<<endl;
                     cout << "Libro: ";
                     cin >> prestamo;
                     bool p =true; // PUEDO HACERLO
                     for (int i = 0; i < conta; ++i) {
-                        if (prestamo==presta[i].getLibro() and presta[i].estatus()==false){
+                        if (prestamo==presta[i].getLibro() and presta[i].estatus()==0){
                             cout << "Lo siento el libro esta ocupado! "<<endl;
                             p = false;
 
@@ -190,10 +245,15 @@ int main() {
                     cout << "Libro: ";
                     cin >> prestamo;
 
-                    if (prestamo==presta[prestamo].getLibro() and presta[prestamo].estatus()==false){
+                    usuario[presta[prestamo].getUsuario()].toString();
+
+                    tB = presta[prestamo].getLibro();
+                    libros[tB].toString();
+
+                    if (prestamo==presta[prestamo].getLibro() and presta[prestamo].estatus()==0){
                         cout << "Ingresa la fecha de devolucion: ";
                         cin >> fechaE;
-                        presta[prestamo].setDevolucion(fechaE);
+                        presta[prestamo].setDevolucion();
                         cout << "---Libro DEVUELTO---"<<endl;
 
                     }else{
@@ -204,11 +264,11 @@ int main() {
                 }else if (opcion == 3){
                     cout << "Que libro desea consultar: ";
                     cin >> prestamo;
-                    if (prestamo==presta[prestamo].getLibro()){
-                        presta[prestamo].toString();
-                    }else{
-                        cout << "Este libro no existe"<<endl;
-                    }
+                    usuario[presta[prestamo].getUsuario()].toString();
+
+                    tB = presta[prestamo].getLibro();
+                    libros[tB].toString();
+
                 }else if (opcion == 4){
                     break;
                 }
@@ -238,6 +298,32 @@ void menuPrincipal (){
     cout << "<==============================>"<<endl;
     cout <<endl;
     cout <<"Opcion =>  "<<endl;
+}
+void menuLibros(){
+
+    cout << " <======== MENU LIBRO ==========>"<<endl;
+    cout << " <=== 1.- Registrar libro =====>"<<endl;
+    cout << " <=== 2.- Editar libro ========>"<<endl;
+    cout << " <=== 3.- Eliminar libro ======>"<<endl;
+    cout << " <=== 4.- Consultar  autor ====>"<<endl;
+    cout << " <=== 5.- Detalles del libro ==>"<<endl;
+
+
+
+}
+void menuUsers(){
+    cout << " <======== MENU USUARIO =======>"<<endl;
+    cout << " <=== 1.- Registrar usuario ===>"<<endl;
+    cout << " <=== 2.- Editar usuario ======>"<<endl;
+    cout << " <=== 3.- Consultar usuario ===>"<<endl;
+    cout << " <=== 4.- Eliminar  usuario ===>"<<endl;
+}
+void menuPrestamos(){
+    cout << " <======== MENU PRESTAMO ======>"<<endl;
+    cout << " <=== 1.- Realizar prestamo ===>"<<endl;
+    cout << " <=== 2.- Devolver libro ======>"<<endl;
+    cout << " <=== 3.- Consultar prestamo ==>"<<endl;
+    cout << " <=== 4.- Menu  principal ===>"<<endl;
 }
 
 

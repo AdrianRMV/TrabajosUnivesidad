@@ -8,7 +8,8 @@
 class Persona {
     private: //atributos
         char nombre [100];
-        int edad;
+        char apellido[100];
+        char nacionalidad[100];
 
 
 
@@ -16,7 +17,7 @@ class Persona {
 
     public: //metodos
         Persona();
-        Persona(char[],int);
+        Persona(char[],char[],char[]);
         void editar();
         void eliminar();
         void toString();//CONSULTAR
